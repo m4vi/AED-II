@@ -69,7 +69,7 @@ void cadastro(funcionario *Est, departamento d[], int *pos_dep)
         printf("Qual a posicao do vetor do departamento ja criado? ");
         int i;
         scanf("%d", &i);
-        //Est->dep->nome= d[i].nome;
+        strcpy(Est->dep->nome, d[i].nome);
         Est->dep->codigo = d[i].codigo;
         break;
     default:
