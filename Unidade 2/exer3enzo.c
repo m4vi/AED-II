@@ -118,10 +118,10 @@ int main(void)
     do
     {
         printf("\nopcoes\n");
-        printf("1 - cadastrar\n");
-        printf("2 - atualizar\n");
-        printf("3 - listar\n");
-        printf("4 - excluir\n");
+        printf(" 1 - cadastrar\n");
+        printf(" 2 - atualizar\n");
+        printf(" 3 - listar\n");
+        printf(" 4 - excluir\n");
         printf("-1 - sair\n");
 
         scanf("%d", &opc);
