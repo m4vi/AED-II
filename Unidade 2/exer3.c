@@ -63,7 +63,7 @@ void listar(funcionario f[], int *pos)
 {
     for (int i = 0; i < *pos; i++)
     {
-        printf("\nNome: %s, codigo: %d, departamento: %s, dep cod: %d", f[i].nome, f[i].codigo, f[i].dep.nome, f[i].dep.codigo);
+        printf("\nNome: %s, codigo: %d, departamento: %s, dep cod: %d", f[i].nome, f[i].codigo, f[i]->dep.nome, f[i]->dep.codigo);
     }
 }
 void listar_D(departamento f[], int *pos)
@@ -129,7 +129,7 @@ void atualizar(funcionario f[], int *pos, departamento d[], int *pos_dep)
         listar_D(d, pos_dep);
         printf("Digite a posicao do departamento que vc quer mandar o funcionario: "); // POSICAO VETOR D
         scanf("%d", &pos_aux2);
-        f[pos_aux].dep = d[pos_aux2];
+        (f[pos_aux].dep) = d[pos_aux2];
         break;
     default:
         break;

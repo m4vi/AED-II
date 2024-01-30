@@ -102,8 +102,8 @@ void imprimir(funcionario f[], int pos)
     for (int i = 0; i < pos; i++)
     {
         printf("Nome: %s\n", f[i].nome);
-        printf("Cargo: %s\n", f[i].cargo);
-        printf("Salario: %f\n", f[i].salario);
+        printf("Codigo: %s\n", f[i].codigo);
+        //printf("Salario: %f\n", f[i].salario);
     }
 }
 int main(void)
