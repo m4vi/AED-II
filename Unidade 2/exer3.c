@@ -21,10 +21,11 @@ typedef struct
 void preencher_departamento(departamento *d)
 {
     getchar(); // pega o caracter enter que veio do main q se perderia dps dp enter. Coloquei pq teve um scanf do medo
-    printf("Departamento: \n");
-    printf("Digite o nome: ");
-    fgets(d->nome, sizeof(d->nome), stdin); // a diferenca é q fgets pq le arquivo, o gets le direto do teclado
-    printf("Digite o codigo do departamento: ");
+    printf("Vamos cadastrar um novo Departamento! \n");
+    printf("Digite o nome do novo departamento: ");
+    scanf("%s[\n]12", d->nome );
+    //fgets(d->nome, sizeof(d->nome), stdin); // a diferenca é q fgets pq le arquivo, o gets le direto do teclado
+    printf("Digite o codigo do novo departamento: ");
     scanf("%d", &d->codigo);
 
     /*
@@ -37,12 +38,14 @@ void cadastro(funcionario *Est, departamento d[], int *pos_dep)
 {
     printf("Digite o nome do funcionario: ");
     fflush(stdin);
-    gets(Est->nome);
+    scanf("%s[\n]12", Est->nome );
+    //fgets(Est->nome, sizeof(Est>nome), stdin);
+    //gets(Est->nome);
 
     printf("Digite o codigo do funcionario: ");
     scanf("%d", &Est->codigo);
 
-    printf("Departamento \nDepartamento ja foi cadastrado? \n1-Nao\n2-Sim: ");
+    printf("Departamento do funcionario ja foi cadastrado? \n1-Nao\n2-Sim: ");
     int aux;
     scanf("%d", &aux);
 
@@ -55,9 +58,7 @@ void cadastro(funcionario *Est, departamento d[], int *pos_dep)
             *(Est->dep) = d[*pos_dep];
             (*pos_dep)++;*/
             preencher_departamento(&d[*pos_dep]);
-
-            Est->dep = &d[*pos_dep];
-            
+            Est->dep = &d[*pos_dep];            
             (*pos_dep)++;
         }
         else
@@ -65,12 +66,11 @@ void cadastro(funcionario *Est, departamento d[], int *pos_dep)
             printf("departamentos maximo");
         }
         break;
-    case 2: // anexa a um ja criado
+    case 2: // anexa a um ja criado --- RESOLVER DEPOIS
         printf("Qual a posicao do vetor do departamento ja criado? ");
         int i;
         scanf("%d", &i);
-        //Est->dep->nome= d[i].nome;
-        Est->dep->codigo = d[i].codigo;
+        Est->dep = &d[i];
         break;
     default:
         break;
@@ -110,7 +110,7 @@ void atualizar(funcionario f[], int *pos, departamento d[], int *pos_dep)
         int pos_aux, pos_aux2;
     case 1:
         listar(f, pos);
-        printf("\ndigite a posicao ");
+        printf("\ndigite a POSICAO do vetor do funcionario que deseja atualizar: ");
         scanf("%d", &pos_aux);
         printf("\nDigite o nome: ");
         fflush(stdin);
@@ -119,7 +119,7 @@ void atualizar(funcionario f[], int *pos, departamento d[], int *pos_dep)
     case 2:
         listar(f, pos);
 
-        printf("\ndigite a posicao ");
+        printf("\ndigite a POSICAO do vetor do funcionario que deseja atualizar: ");
         scanf("%d", &pos_aux);
         printf("Digite o codigo: ");
         fflush(stdin);
@@ -127,15 +127,15 @@ void atualizar(funcionario f[], int *pos, departamento d[], int *pos_dep)
         break;
     case 3:
         listar_D(d, pos_dep);
-        printf("\ndigite a posicao ");
+        printf("\ndigite POSICAO do vetor do departamento que deseja atualizar: ");
         scanf("%d", &pos_aux);
         printf("Digite o nome: ");
         fflush(stdin);
-        gets(f[pos_aux].dep->nome);
+        gets(d[pos_aux].nome);
         break;
     case 4:
         listar_D(d, pos_dep);
-        printf("\ndigite a posicao ");
+        printf("\ndigite POSICAO do vetor do departamento que deseja atualizar: ");
         scanf("%d", &pos_aux);
         printf("Digite o codigo: ");
         fflush(stdin);
@@ -144,11 +144,11 @@ void atualizar(funcionario f[], int *pos, departamento d[], int *pos_dep)
         break;
     case 5:
         listar(f, pos);
-        printf("\ndigite a posicao do funcionario"); // POSICAO DO VETOR F
+        printf("\ndigite POSICAO do vetor do funcionario que deseja atualizar: "); // POSICAO DO VETOR F
         scanf("%d", &pos_aux);
 
         listar_D(d, pos_dep);
-        printf("Digite a posicao do departamento que vc quer mandar o funcionario: "); // POSICAO VETOR D
+        printf("Digite a POSICAO do vetor do departamento que desejar realocar o funcionario: "); // POSICAO VETOR D
         scanf("%d", &pos_aux2);
         f[pos_aux].dep = &d[pos_aux2];
         break;
