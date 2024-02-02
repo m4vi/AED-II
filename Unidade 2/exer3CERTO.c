@@ -70,12 +70,7 @@ void cadastro(funcionario *Est, departamento d[], int *pos_dep)
         printf("Qual a posicao do vetor do departamento ja criado? ");
         int i;
         scanf("%d", &i);
-<<<<<<< HEAD
-        strcpy(Est->dep->nome, d[i].nome);
-        Est->dep->codigo = d[i].codigo;
-=======
         Est->dep = &d[i];
->>>>>>> dc01ebe5582c6388f4e2e27ac88124a23cf75a7e
         break;
     default:
         break;
@@ -153,7 +148,7 @@ void atualizar(funcionario f[], int *pos, departamento d[], int *pos_dep)
         scanf("%d", &pos_aux);
 
         listar_D(d, pos_dep);
-        printf("Digite a POSICAO do vetor do departamento que desejar realocar o funcionario: "); // POSICAO VETOR D
+        printf("\nDigite a POSICAO do vetor do departamento que desejar realocar o funcionario: "); // POSICAO VETOR D
         scanf("%d", &pos_aux2);
         f[pos_aux].dep = &d[pos_aux2];
         break;

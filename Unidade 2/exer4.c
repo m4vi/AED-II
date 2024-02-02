@@ -23,7 +23,7 @@ typedef struct
     } dados;
 } Sensor;
 
-void cadastro(Sensor sensores[], int *totalSensores)
+void cadastro(Sensor *sensores, int *totalSensores)
 {
     printf("\n0 - Temperatura");
     printf("\n1 - Luminosidade");
@@ -55,39 +55,7 @@ void cadastro(Sensor sensores[], int *totalSensores)
     default:
         break;
     }
-
-    sensores[*totalSensores] = novoSensor;
-    (*totalSensores)++;
-    printf("Sensor cadastrado com sucesso.\n");
 }
-
-void lista(Sensor sensores, int *totalSensores)
-{
-    if (totalSensores == 0)
-    {
-        printf("Nenhum sensor cadastrado.\n");
-        return;
-    }
-
-    for (int i = 0; i < totalSensores; i++)
-    {
-        switch (sensores[i].tipo)
-        {
-        case TEMPERATURA:
-            printf("Temperatura: %.2f°C\n", sensores[i].dados.temperatura);
-            break;
-        case LUMINOSIDADE:
-            printf("Luminosidade: %.2f%%\n", sensores[i].dados.luminosidade);
-            break;
-        case MOVIMENTO:
-            printf("Movimento detectado: %s\n", sensores[i].dados.movimento ? "Sim" : "Não");
-            break;
-        default:
-            break;
-        }
-    }
-}
-
 int main()
 {
     Sensor S[TAM];
@@ -118,14 +86,8 @@ int main()
             }
             break;
         case 2:
-            if (pos != 0)
-            {
-                listar(S, &pos);
-            }
-            else
-            {
-                printf("esta vazio\n");
-            }
+            exibirSensores(sensores, totalSensores);
+
             break;
         case -1:
             break;
