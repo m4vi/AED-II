@@ -35,7 +35,10 @@ void listar(Pessoa pessoinha[], int *pos)
 }
 int main()
 {
-    Pessoa *pessoinha = (Pessoa *)calloc(3, sizeof(Pessoa));
+    int n;
+    printf("digite n: ");
+    scanf("%d", &n);
+    Pessoa *pessoinha = (Pessoa *)calloc(n, sizeof(Pessoa));
     int pos = 0, opc, pos_aux;
 
     do
@@ -49,6 +52,7 @@ int main()
         switch (opc)
         {
         case 1:
+
             cadastro(&pessoinha[pos]);
             pos++;
             break;
