@@ -1,12 +1,4 @@
-/*Roberval, aquele um estudante de Controle e Automação que queria criar um sistema 
-controle de luzes de uma casa, está de volta. Agora, ele pretende melhorar o sistema 
-desenvolvido, colocando uma “memória”, que considera o estado da lâmpada após a 
-execução anterior do programa. 
-Por exemplo: se o programa anterior terminou com a lâmpada ligada, em uma 
-nova execução, essa informação deve ser considerada. */
-
 #include <stdio.h>
-#include <stdlib.h>
 
 void ligar(int *luz)
 {
@@ -18,7 +10,7 @@ void desligar(int *luz)
     *(luz) = 0;
     printf("Luz %d\n", *luz);
 }
-void interruptor(int *lampada, void (*pon_desligar)(int*), void (*pon_ligar)(int*))
+void interruptor(int *lampada, void (*pon_desligar)(int *), void (*pon_ligar)(int *))
 {
     if (*lampada == 0) // se estiver desligada
     {
@@ -31,19 +23,47 @@ void interruptor(int *lampada, void (*pon_desligar)(int*), void (*pon_ligar)(int
 }
 int main(void)
 {
-    int luz = 1;
+    FILE *arquivo = fopen("arquivo.txt", "r");
+    if (!arquivo)
+    {
+        printf("Erro ao abrir arquivo para leitura.\n");
+        return 1;
+    }
+
+    int luz = 0;
+
+    if (arquivo != NULL)
+    {
+        fscanf(arquivo, "%d", &luz);
+    }
+    else
+        printf("Erro\n");
+
+    fclose(arquivo);
+
     int *pontSimples = &luz;
     // 0 apagada
     // 1 acesa
 
-    void (*ponteiro_ligar)(int*);
+    void (*ponteiro_ligar)(int *);
     ponteiro_ligar = ligar;
 
-    void (*ponteiro_desligar)(int*);
+    void (*ponteiro_desligar)(int *);
     ponteiro_desligar = desligar;
 
     interruptor(pontSimples, ponteiro_desligar, ponteiro_ligar);
     interruptor(pontSimples, ponteiro_desligar, ponteiro_ligar);
     interruptor(pontSimples, ponteiro_desligar, ponteiro_ligar);
+
+    arquivo = fopen("arquivo.txt", "w");
+    if (!arquivo)
+    {
+        printf("Erro ao abrir arquivo para escrita.\n");
+        return 1;
+    }
+
+    fprintf(arquivo, " %d\n", luz);
+
+    fclose(arquivo);
     return 0;
 }
