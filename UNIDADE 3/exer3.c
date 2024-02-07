@@ -1,78 +1,118 @@
-/*Elabore um programa em C para gerenciar o registro
-de veículos de uma concessionária. Use uma struct
-chamada Veiculo contendo variáveis para modelo, marca, ano de fabricação, cor e preço. Guarde vários registros de veículos em um vetor dessa struct. Implemente funções para salvar os registros em um arquivo e carregá-los quando o programa for iniciado. Desenvolva uma interface de usuário simples para adicionar
-novos veículos, exibir todos os registros e
-atualizar os dados salvos.*/
-
 #include <stdio.h>
+#include <stdlib.h>
 
-typedef struct
-{
-    char modelo[30];
-    char marca[30];
-    int ano_de_fabricacao;
-    char cor[30];
+#define MAX_VEICULOS 100
+
+// Definindo a struct Veiculo
+struct Veiculo {
+    char modelo[50];
+    char marca[50];
+    int anoFabricacao;
+    char cor[20];
     float preco;
-} Veiculos;
+};
 
-void CadastrarDados(Veiculos VetorVeiculo)
-{
-    printf("1 - funcionario nome\n");
-    printf("2 - funcionario codigo \n");
-    printf("3 - departamento nome\n");
-    printf("4 - departamento codigo\n");
-    printf("5 - departamento de um funcionario\n");
-    printf("O que deseja atualizar: ");
-    scanf("%d", &);
+// Função para salvar registros em um arquivo
+void salvarRegistros(struct Veiculo veiculos[], int totalVeiculos) {
+    FILE *arquivo = fopen("registros_veiculos.txt", "w");
+
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo para escrita.\n");
+        exit(1);
+    }
+
+    for (int i = 0; i < totalVeiculos; i++) {
+        fprintf(arquivo, "%s %s %d %s %.2f\n",
+                veiculos[i].modelo, veiculos[i].marca,
+                veiculos[i].anoFabricacao, veiculos[i].cor,
+                veiculos[i].preco);
+    }
+
+    fclose(arquivo);
 }
-int main(void)
-{
-    Veiculos *vVeiculos;
-    Veiculos *vVeiculos = (Veiculos *)calloc(4, sizeof(Veiculos));
 
-    void CadastrarDados(vVeiculos);
+// Função para carregar registros de um arquivo
+int carregarRegistros(struct Veiculo veiculos[]) {
+    FILE *arquivo = fopen("registros_veiculos.txt", "r");
 
-    FILE *arquivo = fopen("arquivo.txt", "w");
-    if (!arquivo)
-    {
-        printf("Erro ao abrir arquivo para leitura.\n");
-        return 1;
+    if (arquivo == NULL) {
+        printf("Arquivo de registros nao encontrado. Criando novo arquivo.\n");
+        return 0; // Sem registros carregados
     }
 
-    int luz = 0;
-
-    if (arquivo != NULL)
-    {
-        fscanf(arquivo, "%d", &luz);
+    int totalVeiculos = 0;
+    while (fscanf(arquivo, "%s %s %d %s %f\n",
+                  veiculos[totalVeiculos].modelo, veiculos[totalVeiculos].marca,
+                  &veiculos[totalVeiculos].anoFabricacao, veiculos[totalVeiculos].cor,
+                  &veiculos[totalVeiculos].preco) == 5) {
+        totalVeiculos++;
     }
-    else
-        printf("Erro\n");
 
     fclose(arquivo);
+    return totalVeiculos;
+}
 
-    int *pontSimples = &luz;
-    // 0 apagada
-    // 1 acesa
-
-    void (*ponteiro_ligar)(int *);
-    ponteiro_ligar = ligar;
-
-    void (*ponteiro_desligar)(int *);
-    ponteiro_desligar = desligar;
-
-    interruptor(pontSimples, ponteiro_desligar, ponteiro_ligar);
-    interruptor(pontSimples, ponteiro_desligar, ponteiro_ligar);
-    interruptor(pontSimples, ponteiro_desligar, ponteiro_ligar);
-
-    arquivo = fopen("arquivo.txt", "w");
-    if (!arquivo)
-    {
-        printf("Erro ao abrir arquivo para escrita.\n");
-        return 1;
+// Função para exibir todos os registros
+void exibirRegistros(struct Veiculo veiculos[], int totalVeiculos) {
+    printf("Registros de Veiculos:\n");
+    for (int i = 0; i < totalVeiculos; i++) {
+        printf("Modelo: %s, Marca: %s, Ano: %d, Cor: %s, Preço: %.2f\n",
+                veiculos[i].modelo, veiculos[i].marca,
+                veiculos[i].anoFabricacao, veiculos[i].cor,
+                veiculos[i].preco);
     }
+}
 
-    fprintf(arquivo, " %d\n", luz);
+int main() {
+    struct Veiculo veiculos[MAX_VEICULOS];
+    int totalVeiculos = 0;
 
-    fclose(arquivo);
+    // Carregar registros existentes
+    totalVeiculos = carregarRegistros(veiculos);
+
+    int opcao;
+    do {
+        printf("\n1. Adicionar novo veiculo\n");
+        printf("2. Exibir todos os registros\n");
+        printf("3. Sair\n");
+        printf("Escolha uma opcao: ");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:
+                if (totalVeiculos < MAX_VEICULOS) {
+                    printf("\nDigite os detalhes do veiculo:\n");
+                    printf("Modelo: ");
+                    scanf("%s", veiculos[totalVeiculos].modelo);
+                    printf("Marca: ");
+                    scanf("%s", veiculos[totalVeiculos].marca);
+                    printf("Ano de Fabricacao: ");
+                    scanf("%d", &veiculos[totalVeiculos].anoFabricacao);
+                    printf("Cor: ");
+                    scanf("%s", veiculos[totalVeiculos].cor);
+                    printf("Preco: ");
+                    scanf("%f", &veiculos[totalVeiculos].preco);
+
+                    totalVeiculos++;
+
+                    // Salvar registros após adicionar um novo veículo
+                    salvarRegistros(veiculos, totalVeiculos);
+
+                    printf("Veiculo adicionado!\n");
+                } else {
+                    printf("Limite de veículos atingido.\n");
+                }
+                break;
+            case 2:
+                exibirRegistros(veiculos, totalVeiculos);
+                break;
+            case 3:
+                printf("Encerrando o programa.\n");
+                break;
+            default:
+                printf("Opcao invalida. Tente novamente.\n");
+        }
+    } while (opcao != 3);
+
     return 0;
 }
