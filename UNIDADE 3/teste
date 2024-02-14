@@ -1,0 +1,17 @@
+#include <stdio.h>
+
+int main()
+{
+    float custoDeFabrica;
+    float percentualDistribuidor = 0.38;
+    float percentualDeImpostos = 0.57;
+
+    printf("Insira o custo de fábrica: ");
+    scanf("%f", &custoDeFabrica);
+    
+
+
+    float custoFinal = (custoDeFabrica*(percentualDeImpostos+1))*(percentualDistribuidor+1);
+    printf("O custo final é: R$%.2f\n", custoFinal);
+    return 0;
+}

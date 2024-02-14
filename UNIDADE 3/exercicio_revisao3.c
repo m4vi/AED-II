@@ -18,11 +18,12 @@ void cadastro(Pessoa *pessoinha)
 
 void excluir(Pessoa Pessoinha[], int *pos, int *pos_exc)
 {
-    for (int i = *pos_exc; i < *pos - 1; i++)
+    for (int i = *pos_exc; i < *(pos - 1); i++)
     {
         Pessoinha[i] = Pessoinha[i + 1];
     }
-    (*pos)--;
+    //(*pos)--;
+    *pos = *pos -1;
     printf("carro excluido com sucesso\n");
 }
 
