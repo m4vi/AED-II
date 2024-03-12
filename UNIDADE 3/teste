@@ -2,16 +2,22 @@
 
 int main()
 {
-    float custoDeFabrica;
-    float percentualDistribuidor = 0.38;
-    float percentualDeImpostos = 0.57;
-
-    printf("Insira o custo de fábrica: ");
-    scanf("%f", &custoDeFabrica);
+    float num1, num2, soma, divisao,multi ;
     
-
-
-    float custoFinal = (custoDeFabrica*(percentualDeImpostos+1))*(percentualDistribuidor+1);
-    printf("O custo final é: R$%.2f\n", custoFinal);
+    printf("Digite o primeiro numero:");
+    scanf("%f",&num1);
+    
+      printf("Digite o segundo numero:");
+    scanf("%f",&num2);
+    
+    soma = num1+num2;
+    multi = num1*num2;
+    divisao = num1/num2;
+     printf("\nA soma desses numeros é: %.1f", soma);
+     printf("\nA multiplicação desses numeros é: %.1f", multi);
+     printf("\nA divisão desses numeros é: %.1f", divisao);
+     
+    
+   
     return 0;
 }
