@@ -38,7 +38,7 @@ void bubbleSort(char palavras[4][13], int tam)
 
 int main(void)
 {
-    char Cidades[4][13] = {"CAMOMILA", "ZEBRA", "ASSUNÇÃO", "DIONÍSIO"};
+    char Cidades[4][13] = {"CAMOMILA", "ZEBRA", "ASSUNCAO", "DIONISIO"};
     int iTamanho = 4;
 
     bubbleSort(Cidades, iTamanho);
